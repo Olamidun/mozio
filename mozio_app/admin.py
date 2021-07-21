@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Provider, ServiceArea
+from .models import ServiceArea, Provider
 # Register your models here.
 
 class ProviderAdmin(admin.ModelAdmin):
@@ -7,9 +7,9 @@ class ProviderAdmin(admin.ModelAdmin):
 
 
 class ServiceareaAdmin(admin.ModelAdmin):
-    list_display = ['name', 'provider', 'price', 'polygon']
+    list_display = ['name', 'price', 'polygon']
 
-admin.site.register(Provider, ProviderAdmin)
+admin.site.register(Provider)
 admin.site.register(ServiceArea, ServiceareaAdmin)
 
 # admin.site.register(GeoJsonModel)

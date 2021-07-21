@@ -48,12 +48,22 @@ INSTALLED_APPS = [
 
     # Created Apps
     'mozio_app.apps.MozioAppConfig',
+    'provider.apps.ProviderConfig',
 
     # Installed apps
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'rest_framework_gis',
-    'djgeojson',
+
+    # 'dj_rest_auth',
+    # 'django.contrib.sites',
+    # 'allauth',
+    # 'allauth.account',
+    # 'dj_rest_auth.registration'
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -143,3 +153,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+     'DEFAULT_AUTHENTICATION_CLASSES':
+    ('rest_framework.authentication.TokenAuthentication',
+ )}
