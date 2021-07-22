@@ -19,5 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('mozio', include('mozio_app.urls')),
+    path('', include('mozio_app.urls')),
 ]

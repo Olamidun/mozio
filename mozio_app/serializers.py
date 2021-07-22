@@ -19,7 +19,7 @@ class ServiceAreaSerializer(GeoFeatureModelSerializer):
     class Meta:
         model = ServiceArea
         geo_field = 'polygon'
-        fields = ['id', 'polygon', 'name', 'price']
+        fields = ['id', 'provider', 'polygon', 'name', 'price']
         # depth = 1
 
         extra_kwargs = {
@@ -30,6 +30,7 @@ class ServiceAreaSerializer(GeoFeatureModelSerializer):
 
 
 class CreateServiceSerializer(serializers.Serializer):
+    provider_id = serializers.IntegerField()
     polygon = serializers.JSONField(write_only=True)
     name = serializers.CharField()
     price = serializers.DecimalField(decimal_places=2, max_digits=12, default=0)
@@ -39,6 +40,7 @@ class CreateServiceSerializer(serializers.Serializer):
         polygon = validated_data.get('polygon')
         name = validated_data.get('name')
         price = validated_data.get('price')
-        pprint.PrettyPrinter(indent=4).pprint(polygon)
-        service_area = ServiceArea.objects.create(polygon=GEOSGeometry(json.dumps(polygon)), name=name, price=price)
+        # pprint.PrettyPrinter(indent=4).pprint(polygon)
+        provider = Provider.objects.get(id=validated_data.get('provider_id'))
+        service_area = ServiceArea.objects.create(polygon=GEOSGeometry(json.dumps(polygon)), name=name, price=price, provider=provider)
         return service_area

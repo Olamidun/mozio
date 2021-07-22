@@ -5,6 +5,8 @@ from rest_framework import generics
 from .serializers import ServiceAreaSerializer,  ProviderSerializer, CreateServiceSerializer
 from .models import ServiceArea, Provider
 from django.contrib.gis.geos import GEOSGeometry, Polygon
+
+from mozio_app import serializers
 # Create your views here.
 
 class ProviderAPIView(generics.ListCreateAPIView):
@@ -13,7 +15,7 @@ class ProviderAPIView(generics.ListCreateAPIView):
         return Provider.objects.all()
 
 
-class RetrieveUpdateDestroyAPIView(generics.RetrieveDestroyAPIView):
+class ProviderRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProviderSerializer
     def get_queryset(self):
         return Provider.objects.filter()
@@ -48,3 +50,7 @@ class ListServiceAreaWithLongAndLat(generics.ListAPIView):
 
 class CreateServiceArea(generics.CreateAPIView):
     serializer_class = CreateServiceSerializer
+    # def perform_create(self, serializer):
+    #     provider = Provider.objects.get(pk=self.kwargs['pk'])
+    #     print(provider)
+    #     serializer.save(provider=provider)
